@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
 	//Connexion à la BDD
 	bddserver *bdd = new bddserver();
-	bdd->bddInit("QMYSQL", "192.168.65.58", "servertcpwebsocket", "root", "root");
+	bdd->bddInit("QMYSQL", "192.168.65.144", "servertcpwebsocket", "root", "root");
 
 	//Appel du server WS
 	QtserverWebSocket serverWebSocket(bdd, 1234);
