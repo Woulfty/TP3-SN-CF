@@ -1,0 +1,268 @@
+﻿/* Balise pour l'entête du site */
+.header {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid;
+    border-color: #e7e7e7;
+    z-index: 1000;
+}
+
+/* Balise du menu gauche de l'entête */
+nav .navbar-gauche {
+    position: relative;
+    width: 600px;
+    height: 56px;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav>.navbar-gauche::after {
+    display: block;
+    clear: both;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+nav .navbar-gauche>li {
+    display: inline;
+    position: relative;
+    top: 8px;
+}
+
+nav .navbar-gauche>li>a {
+    color: gray;
+    cursor: pointer;
+    padding: 13px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+nav .navbar-gauche>li>a:hover {
+    color: #212529;
+}
+
+.titre {
+    font-size: 20px;
+    color: gray;
+}
+
+.logo {
+    position: relative;
+    top: 5px;
+    margin-right: 5px;
+}
+
+/* Balise du menu droite de l'entête */
+nav .navbar-droite {
+    position: relative;
+    top: -54px;
+    height: 56px;
+    float: right;
+    margin: 0;
+    padding: 0px 10px 0px 0px;
+    display: inline;
+}
+
+nav>.navbar-droite::after {
+    display: block;
+    clear: both;
+}
+
+nav li {
+    list-style-type: none;
+}
+
+nav .navbar-droite>li {
+    display: inline;
+    position: relative;
+}
+
+nav .navbar-droite>li>a {
+    color: gray;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    top: 20px;
+    padding: 14px 0px;
+    margin: 0px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    ;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+/* Sous-menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Sous-menu Aide */
+.dropdown-aid-menu {
+    color: gray;
+    background-color: #f8f9fa;
+    padding: 15px;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-aid-menu:hover,
+.dropdown-aid-menu:focus {
+    color: #212529;
+}
+
+.dropdown-aid {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 200px;
+    left: -105px;
+    border-radius: 0 0 .25em .25em;
+    border-color: #e7e7e7;
+}
+
+.dropdown-aid a {
+    color: black;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-aid a:hover {
+    background-color: #f1f1f1
+}
+
+/* Sous-menu Profil */
+.dropdown-profil-menu {
+    background-color: #f8f9fa;
+    color: gray;
+    padding: 14px;
+    right: 0;
+    left: auto;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-profil-menu:hover,
+.dropdown-profil-menu:focus {
+    color: #212529;
+}
+
+.dropdown-profil {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 170px;
+    right: 0;
+    margin-top: 0;
+    border: 1px solid;
+    border-color: #e7e7e7;
+    border-radius: 0 0 .25em .25em;
+}
+
+.dropdown-profil button {
+    color: black;
+    background-color: #f9f9f9;
+    width: 170px;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 12px 16px;
+    border: none;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-profil button:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.show-profil {
+    display: block;
+    top: 54px;
+}
+
+/* Menu Responsive */
+.navbar-collapse {
+    position: fixed;
+    visibility: collapse;
+    top: 0;
+    width: 100%;
+    height: 56px;
+}
+
+.menu-collapse {
+    background-color: #f8f9fa;
+    color: gray;
+    padding: 14px;
+    right: 0;
+    left: auto;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-collapse:hover,
+.menu-collapse:focus {
+    color: #212529;
+}
+
+.sidebar-menu {
+    /*! display: none; */
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    right: -150%;
+    margin-top: 0;
+    border: 1px solid;
+    border-color: #e7e7e7;
+    background-color: #f9f9f9;
+    text-align: center;
+    transform: translateX(0);
+    transition: transform 0.3s;
+    transition: right .7s;
+}
+
+.open {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 56px;
+}
+
+.sidebar-menu li {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.sidebar-menu a {
+    color: gray;
+    text-decoration: none;
+}
+
+.sidebar-menu a:hover {
+    color: #CC0000;
+}
+
+@media screen and (max-width: 800px) {
+    .navbar {
+        visibility: collapse;
+    }
+
+    .navbar-collapse {
+        visibility: visible;
+    }
+}

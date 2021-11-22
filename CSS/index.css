@@ -1,8 +1,11 @@
 .map{
     border: 0;
     width: 1900px;
-    height: 900px;
+    height: 300px;
+}
+.esp{
+    height: 5vh;
 }
 body{
-    background-color: aquamarine;
+    background-color: rgb(56, 56, 56);
 }
