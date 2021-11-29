@@ -1,4 +1,4 @@
-var socket = new WebSocket("ws://192.168.65.144:1234");
+var socket = new WebSocket("ws://192.168.65.144:5000");
 
 //DIV
 var connexion = document.getElementById('connexion');
