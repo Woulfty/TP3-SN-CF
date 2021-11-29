@@ -25,7 +25,7 @@ $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
 <body>
 
     <?php
-        include "Web/menu.php";
+        include "menu.php";
     ?>
     
     <div id='map' class='esp' style='width: 1900px; height: 900px; margin-top: 60px;'>
@@ -43,7 +43,7 @@ $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
             map.addControl(new mapboxgl.NavigationControl());
 
         </script>
-        
+
     </div>
 </body>
 </html>

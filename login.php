@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/logo_copie.ico" />
-    <link rel="stylesheet" href="../CSS/index.css">
-    <link rel="stylesheet" href="../CSS/menu.css">
+    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/menu.css">
     <title>connexion</title>
 </head>
 <body>
     <?php
-        include "nav.php";
+        include "menu.php";
     ?>
 
-    
+    <form>
+        
+    </form>
 
     <script type="text/javascript" src="../JS/socket.js"></script>
 </body>
