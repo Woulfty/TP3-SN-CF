@@ -1,55 +1,49 @@
 <?php
 //$trame = new Trame($_PDO);
+
+// On vérifie si la variable existe et sinon elle vaut NULL
+$latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
+$longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="IMG/logo_copie.ico" />
+    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/menu.css">
+    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
     <title>SN-CF</title>
 </head>
-<body> 
-    <script>
-        //local
-        var socket = new WebSocket("ws://192.168.65.144");
+<body>
 
-        inputSend.addEventListener('click', function(){
-            var message = inputMessage.value
-
-            data ="Bdd"+message;
-            
-            socket.send(data);
-
-            inputMessage.value = "";
-        });
-
-        // Lorsque la connexion est établie.
-        socket.onopen = function() {
-            console.log("Client WebSocket: Nouvelle connexion");            
-        };
-
-        // Lorsque la connexion se termine.
-        socket.onclose = function() {
-            console.log("Client WebSocket: Déconnexion");
-        };
-
-        // Récupération des erreurs.
-        // Si la connexion ne s'établie pas,
-        socket.onerror = function(error) {
-            console.error(error);
-        };
-                
-        // Lorsque le serveur envoi un message.
-        socket.onmessage = function(event) {
-           
-        };
-            
-    </script>
+    <?php
+        include "Web/menu.php";
+    ?>
     
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5661875.706410285!2d-2.434900432556569!3d46.13904121191319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54a02933785731%3A0x6bfd3f96c747d9f7!2sFrance!5e0!3m2!1sfr!2sfr!4v1636968215925!5m2!1sfr!2sfr" style="width: 100%; height: 945px; border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div id='map' class='esp' style='width: 1900px; height: 900px; margin-top: 60px;'>
 
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoicmxpZW5hcmQiLCJhIjoiY2t3YWoxeWFpMTJoMDJucW11bXcwZXowbiJ9.zWBqg_Hbr6zEQTiI-nViaQ';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [2, 47], // starting position
+                zoom: 5.5 // starting zoom
+            });
+
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+
+        </script>
+        
+    </div>
 </body>
 </html>
