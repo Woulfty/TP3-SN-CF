@@ -20,10 +20,10 @@ Sondeur::Sondeur(QWidget *parent)
 
 	if (port -> isOpen())
 	{
-		qDebug() << "Ping Pong";
+		qDebug() << "port ouvert";
 	} else
 	{
-		qDebug() << "Ching Chong";
+		qDebug() << "port fermé";
 	}
 }
 
