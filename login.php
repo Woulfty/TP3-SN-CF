@@ -14,9 +14,7 @@
         include "nav.php";
     ?>
 
-    <form>
-        
-    </form>
+    
 
     <script type="text/javascript" src="../JS/socket.js"></script>
 </body>
