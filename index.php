@@ -5,6 +5,8 @@
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
 
+include "fonction.php";
+
 ?>
 
 <!DOCTYPE html>

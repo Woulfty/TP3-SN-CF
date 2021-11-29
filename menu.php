@@ -1,5 +1,3 @@
-<link rel='stylesheet' type='text/css' href='src/css/menu.css'>
-
 <header class="header">
     <nav class="navbar">
         <ul class="navbar-gauche">
@@ -18,5 +16,3 @@
         </ul>
     </nav>
 </header>
-
-<script type="text/javascript" src="src/js/menu.js"></script>

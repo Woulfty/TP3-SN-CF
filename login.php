@@ -1,3 +1,7 @@
+<?php
+    include "fonction.php";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,21 +24,21 @@
             <div class="title">Bienvenue</div>
 
             <div class="input-container ic1">
-                <input id="login" class="input" type="text" placeholder=" " />
+                <input id="inputLogin_Connexion" class="input" type="text" placeholder=" " />
                 <div class="cut"></div>
                 <label for="login" class="placeholder">Login</label>
             </div>
 
             <div class="input-container ic2">
-                <input id="password" class="input" type="password" placeholder=" " />
+                <input id="inputPassword_Connexion" class="input" type="password" placeholder=" " />
                 <div class="cut"></div>
                 <label for="password" class="placeholder">Password</label>
             </div>
 
-            <button type="text" class="submit">Se connecter</button>
+            <button id="inputSend" type="text" class="submit">Se connecter</button>
         
         </div>
 
-        <script type="text/javascript" src="../JS/socket.js"></script>
+        <script type="text/javascript" src="JS/socket.js"></script>
     </body>
 </html>
