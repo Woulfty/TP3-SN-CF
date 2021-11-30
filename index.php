@@ -5,6 +5,18 @@
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
 
+try {
+    $host = "192.168.65.201";
+    $dbname = "SNCF";
+    $login = "admin";
+    $mdp = "admin";
+
+    $bdd = new PDO('mysql:host='.$host.'; dbname='.$dbname.'; charset=utf8', $login, $mdp);
+} catch (Exception $e)
+{
+print_r('Erreur : ' . $e->getMessage());
+}
+
 include "fonction.php";
 
 ?>
@@ -14,7 +26,7 @@ include "fonction.php";
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="IMG/logo_copie.ico" />
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/menu.css">
@@ -25,6 +37,19 @@ include "fonction.php";
     <title>SN-CF</title>
 </head>
 <body>
+
+<style> 
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }     
+.marker 
+{
+  background-image: url('IMG/marker.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+</style>
 
     <?php
         include "menu.php";
