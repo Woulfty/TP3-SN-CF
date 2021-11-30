@@ -1,7 +1,7 @@
 <?php
 //$trame = new Trame($_PDO);
 
-// On vérifie si la variable existe et sinon elle vaut NULL
+// - check if var exist, if not, set value as NULL
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
 
@@ -57,16 +57,37 @@ include "fonction.php";
     
     <div id='map' class='esp' style='width: 1900px; height: 900px; margin-top: 60px;'>
 
-        <script>
+    <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoicmxpZW5hcmQiLCJhIjoiY2t3YWoxeWFpMTJoMDJucW11bXcwZXowbiJ9.zWBqg_Hbr6zEQTiI-nViaQ';
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [2, 47], // starting position
-                zoom: 5.5 // starting zoom
+                center: [2.5044202727948375, 49.87232835046542], // - Default position
+                zoom: 11 // - Default zoom
             });
+            
+            let markers = [];
+            var i = 0; 
 
-            // Add zoom and rotation controls to the map.
+            <?php
+                $tramesQuery = $bdd->query("SELECT * FROM trames");
+                while ($markers = $tramesQuery->fetch()) {
+            ?>
+
+                console.log("coucou");
+
+                // - Create a Marker and add it to the map
+                markers[i] = new mapboxgl.Marker()
+                    .setLngLat([<?php echo $markers['longitude']?>, <?php echo $markers['lattitude']?>])
+                    .addTo(map);
+
+                i++;
+
+            <?php
+                }
+            ?>
+
+            // - Add zoom and rotation controls to the map
             map.addControl(new mapboxgl.NavigationControl());
 
         </script>
