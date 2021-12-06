@@ -38,19 +38,6 @@ include "fonction.php";
 </head>
 <body>
 
-<style> 
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }     
-.marker 
-{
-  background-image: url('IMG/marker.png');
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-</style>
-
     <?php
         include "menu.php";
     ?>
@@ -62,23 +49,29 @@ include "fonction.php";
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [2.5044202727948375, 49.87232835046542], // - Default position
-                zoom: 11 // - Default zoom
+                center: [2.9273937, 47.4115613], // - Default position
+                zoom: 6 // - Default zoom
             });
             
             let markers = [];
             var i = 0; 
+            let markerstab = [];
 
             <?php
                 $tramesQuery = $bdd->query("SELECT * FROM trames");
                 while ($markers = $tramesQuery->fetch()) {
             ?>
 
-                console.log("coucou");
+                // - set php coord into js var
+                var longitude = <?php echo $markers['longitude']?>;
+                var latitude = <?php echo $markers['lattitude']?>;
+
+
+                markerstab.push('[' +longitude+ ',' +latitude+ ']');
 
                 // - Create a Marker and add it to the map
                 markers[i] = new mapboxgl.Marker()
-                    .setLngLat([<?php echo $markers['longitude']?>, <?php echo $markers['lattitude']?>])
+                    .setLngLat([longitude, latitude])
                     .addTo(map);
 
                 i++;
@@ -86,6 +79,88 @@ include "fonction.php";
             <?php
                 }
             ?>
+    </script>
+
+    <!-- Trace line script -->
+    <script>
+
+            // - On load map, trace line between markers added before
+            map.on('load', function () {
+            map.addSource('multiple-lines-source', {
+                'type': 'geojson',
+                'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': [
+                            [2.30824,49.8907],
+                            [2.32499,49.8884],
+                            [2.33868,49.88],
+                            [2.34267,49.8742],
+                            [2.34357,49.8687],
+                            [2.35232,49.8638],
+                            [2.36543,49.8619],
+                            [2.37718,49.8595],
+                            [2.39843,49.8459],
+                            [2.40648,49.8325],
+                            [2.40364,49.8237],
+                            [2.39951,49.8172],
+                            [2.39556,49.8075],
+                            [2.39261,49.7995],
+                            [2.38748,49.7874],
+                            [2.37099,49.7665],
+                            [2.36415,49.7545],
+                            [2.35662,49.7416],
+                            [2.35329,49.7252],
+                            [2.35933,49.7082],
+                            [2.35545,49.7015],
+                            [2.34849,49.6964],
+                            [2.34476,49.6921],
+                            [2.3373,49.6807],
+                            [2.33725,49.6741],
+                            [2.3414,49.6704],
+                            [2.35117,49.6666],
+                            [2.35608,49.6627],
+                            [2.3628,49.6556],
+                            [2.36924,49.652],
+                            [2.37688,49.6475],
+                            [2.38012,49.6334],
+                            [2.38433,49.6263],
+                            [2.38888,49.6196],
+                            [2.38862,49.6131],
+                            [2.39117,49.6072],
+                            [2.40194,49.6002],
+                            [2.4073,49.5904],
+                            [2.4165,49.5846],
+                            [2.43691,49.5723],
+                            [2.43952,49.5656],
+                            [2.43087,49.5393],
+                            [2.43591,49.514],
+                            [2.42913,49.5035]
+                        ]
+                    }
+                    }
+                ]
+                },
+            });
+
+            map.addLayer({
+                'id': 'multiple-lines-layer',
+                'type': 'line',
+                'source': 'multiple-lines-source',
+                'layout': {},
+                'paint': {
+                    
+                    'line-width': 8,
+                    'line-color': '#0C6DDA',
+                },
+            });
+            });
+
 
             // - Add zoom and rotation controls to the map
             map.addControl(new mapboxgl.NavigationControl());
