@@ -52,10 +52,27 @@ include "fonction.php";
                 center: [2.9273937, 47.4115613], // - Default position
                 zoom: 6 // - Default zoom
             });
+
+            const geojson = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {
+                        'message': 'Foo',
+                        'iconSize': [60, 60]
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [-66.324462, -16.024695]
+                    }
+                    }
+            ]};
             
             let markers = [];
             var i = 0; 
             let markerstab = [];
+            el = document.createElement('div');
 
             <?php
                 $tramesQuery = $bdd->query("SELECT * FROM trames");
@@ -65,27 +82,65 @@ include "fonction.php";
                 // - set php coord into js var
                 var longitude = <?php echo $markers['longitude']?>;
                 var latitude = <?php echo $markers['lattitude']?>;
-
-
                 markerstab.push('[' +longitude+ ',' +latitude+ ']');
 
-                // - Create a Marker and add it to the map
-                markers[i] = new mapboxgl.Marker()
-                    .setLngLat([longitude, latitude])
-                    .addTo(map);
-
                 i++;
-
+        
             <?php
                 }
             ?>
+
+                // - Simulate First_Marker & Last_Marker
+                const First_Marker = document.createElement('div');
+                First_Marker.className = 'First_Marker';
+                First_Marker.style.backgroundImage = `url(IMG/Marker1.png)`;
+                First_Marker.style.width = `32px`;
+                First_Marker.style.height = `32px`;
+                First_Marker.style.backgroundSize = '100%';
+
+                new mapboxgl.Marker(First_Marker)
+                    .setLngLat([2.30824,49.8907])
+                    .addTo(map);
+
+                const Last_Marker = document.createElement('div');
+                Last_Marker.className = 'Last_Marker';
+                Last_Marker.style.backgroundImage = `url(IMG/Marker1.png)`;
+                Last_Marker.style.width = `32px`;
+                Last_Marker.style.height = `32px`;
+                Last_Marker.style.backgroundSize = '100%';
+
+                new mapboxgl.Marker(Last_Marker)
+                    .setLngLat([2.42913,49.5035])
+                    .addTo(map);
+
+
+
+            
+            // - Simulate Tchou-Tchou
+            const TchouTchou = document.createElement('div');
+            const width = 64;
+            const height = 64;
+            TchouTchou.className = 'TchouTchou';
+            TchouTchou.style.backgroundImage = `url(IMG/Tchou-Tchou.png)`;
+            TchouTchou.style.width = `${width}px`;
+            TchouTchou.style.height = `${height}px`;
+            TchouTchou.style.backgroundSize = '100%';
+            
+            new mapboxgl.Marker(TchouTchou)
+                .setLngLat([2.3562548609569554, 49.716222031193546])
+                .addTo(map);
     </script>
+
+
+    
+
 
     <!-- Trace line script -->
     <script>
 
             // - On load map, trace line between markers added before
             map.on('load', function () {
+
             map.addSource('multiple-lines-source', {
                 'type': 'geojson',
                 'data': {
@@ -154,9 +209,8 @@ include "fonction.php";
                 'source': 'multiple-lines-source',
                 'layout': {},
                 'paint': {
-                    
                     'line-width': 8,
-                    'line-color': '#0C6DDA',
+                    'line-color': '#91A7AF',
                 },
             });
             });
