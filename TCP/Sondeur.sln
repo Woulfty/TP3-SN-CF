@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.1259
+VisualStudioVersion = 15.0.28307.1622
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sondeur", "Sondeur\Sondeur.vcxproj", "{0E32A3DE-E2F5-4E92-8167-BD996F9C935E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sondeur", "TCP\TCP\Sondeur.vcxproj", "{0E32A3DE-E2F5-4E92-8167-BD996F9C935E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B13E565B-E363-4E8D-93BF-855B32C9D91E}
+		SolutionGuid = {FD1F7B1F-3561-4EDF-BD53-852EDFC4E6C8}
 	EndGlobalSection
 EndGlobal

@@ -1,21 +1,9 @@
 <?php
 //$trame = new Trame($_PDO);
 
-// - check if var exist, if not, set value as NULL
+// On vérifie si la variable existe et sinon elle vaut NULL
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
-
-try {
-    $host = "192.168.65.201";
-    $dbname = "SNCF";
-    $login = "admin";
-    $mdp = "admin";
-
-    $bdd = new PDO('mysql:host='.$host.'; dbname='.$dbname.'; charset=utf8', $login, $mdp);
-} catch (Exception $e)
-{
-print_r('Erreur : ' . $e->getMessage());
-}
 
 include "fonction.php";
 
@@ -26,7 +14,7 @@ include "fonction.php";
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="IMG/logo_copie.ico" />
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/menu.css">
@@ -44,7 +32,7 @@ include "fonction.php";
     
     <div id='map' class='esp' style='width: 1900px; height: 900px; margin-top: 60px;'>
 
-    <script>
+        <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoicmxpZW5hcmQiLCJhIjoiY2t3YWoxeWFpMTJoMDJucW11bXcwZXowbiJ9.zWBqg_Hbr6zEQTiI-nViaQ';
             var map = new mapboxgl.Map({
                 container: 'map',
@@ -68,27 +56,6 @@ include "fonction.php";
                     }
                     }
             ]};
-            
-            let markers = [];
-            var i = 0; 
-            let markerstab = [];
-            el = document.createElement('div');
-
-            <?php
-                $tramesQuery = $bdd->query("SELECT * FROM trames");
-                while ($markers = $tramesQuery->fetch()) {
-            ?>
-
-                // - set php coord into js var
-                var longitude = <?php echo $markers['longitude']?>;
-                var latitude = <?php echo $markers['lattitude']?>;
-                markerstab.push('[' +longitude+ ',' +latitude+ ']');
-
-                i++;
-        
-            <?php
-                }
-            ?>
 
                 // - Simulate First_Marker & Last_Marker
                 const First_Marker = document.createElement('div');
