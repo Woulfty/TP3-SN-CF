@@ -1,14 +1,12 @@
 ﻿#include "Sondeur.h"
 #include "Qdebug"
 #include <QRegExp>
+#define PORT "COM1"
+#include <QtCore/QCoreApplication>
+#include "serverTCP.h"
+#include "serverWebSocket.h"
+#include "bddserver.h"
 
-//Include des dépendances pour les requêtes SQL
-#include <QSqlDatabase>
-#include <QtSql/QtSql>
-#include <QSqlQuery>
-#include <QtSql>
-
-#define PORT "COM6"
 
 Sondeur::Sondeur(QWidget *parent)
 	: QMainWindow(parent)
@@ -19,7 +17,7 @@ Sondeur::Sondeur(QWidget *parent)
 	QObject::connect(port, SIGNAL(readyRead()), this, SLOT(serialPortRead()));
 	port->setPortName(PORT);
 	port->open(QIODevice::ReadWrite);
-	port->setBaudRate(QSerialPort::Baud9600);
+	port->setBaudRate(QSerialPort::Baud4800);
 	port->setDataBits(QSerialPort::DataBits::Data8);
 	port->setParity(QSerialPort::Parity::NoParity);
 	port->setStopBits(QSerialPort::StopBits::OneStop);
@@ -32,11 +30,10 @@ Sondeur::Sondeur(QWidget *parent)
 	db.setPassword("root");
 	db.setDatabaseName("SNCF");
 
-	if (port->isOpen())
+	if (port -> isOpen())
 	{
 		qDebug() << "Ping Pong";
-	}
-	else
+	} else
 	{
 		qDebug() << "Ching Chong";
 	}
@@ -68,42 +65,26 @@ void Sondeur::serialPortRead() {
 
 		// -- D�coupe notre chaine � chaque virgules
 		QStringList data = list.at(1).split(',', Qt::SkipEmptyParts);
-
-		QString Longitude = data.at(1)
-			, Latitude = data.at(3)
+		//GPGGA,064036.289,43.299382,N,5.3717137,E,1,04,3.2,200.2,M,,,,0000*0E
+		QString Longitude = data.at(2)
+			, Latitude = data.at(4)
 			, Timestamp = data.at(0);
 		// -- Conversion
 		int LongitudeDot = Longitude.indexOf(".")
 			, LatitudeDot = Latitude.indexOf(".");
 
-		if (Longitude.toDouble() > 10) {
-			Longitude.insert(LongitudeDot - 2, ",");
-		}
-		else {
-			Longitude.insert(LongitudeDot - 1, "00,");
-		}
+		Longitude.insert(LongitudeDot - 2, ",");
+		Latitude.insert(LatitudeDot - 2, ",");
 
-		if (Latitude.toDouble() > 10) {
-			Latitude.insert(LatitudeDot - 2, ",");
-		}
-		else {
-			Longitude.insert(LongitudeDot - 1, "00,");
-		}
-
-		// -- Latitude
 		QStringList LatitudeSplit = Latitude.split(",");
 		double LatitudeDivide = LatitudeSplit.at(1).toDouble() / 60;
 		double LatitudePDivide = LatitudeSplit.at(0).toDouble();
 		double VraiLatitude = LatitudeDivide + LatitudePDivide;
-		
-		// -- Longitude
 
 		QStringList LongitudeSplit = Longitude.split(",");
 		double LongitudeDivide = LongitudeSplit.at(1).toDouble() / 60;
 		double LongitudePDivide = LongitudeSplit.at(0).toDouble();
 		double VraiLongitude = LongitudeDivide + LongitudePDivide;
-		
-
 
 		QString LongitudeString = QString::number(VraiLongitude);
 
@@ -112,16 +93,36 @@ void Sondeur::serialPortRead() {
 		qDebug() << "Longitude : " << VraiLongitude;
 		qDebug() << "Latitude : " << VraiLatitude;
 
-		ui.latitude->setText(LatitudeString);
-		ui.longitude->setText(LongitudeString);
+		ui.Label->setText(LatitudeString);
+		ui.label->setText(LongitudeString);
 
-		QString requete = "UPDATE train SET latitude = "+LatitudeString+", longitude = "+LongitudeString+" WHERE id = 1";
+		QString requete = "UPDATE train SET latitude = "LatitudeString", longitude = "LongitudeString";
 	}
 	QStringList list;
 }
 
-//$SDMTW,,,C*36		:: Temperature
-//$SDDPT,,*57		:: Profondeur
+int main(int argc, char *argv[])
+{
+	QCoreApplication a(argc, argv);
 
-//Coordonnée
-//$GPGGA, 00 00 42, 4952.6634, N, 00218.1741, E, 0, 0, 50.00, -47, M, , , , *26\r\n
+	//Connexion à la BDD
+	bddserver *bdd = new bddserver();
+	bdd->bddInit("QMYSQL", "192.168.65.201", "SNCF", "root", "root");
+
+	//Appel du server WS
+	QtserverWebSocket serverWebSocket(bdd, 1234);
+
+	//Appel du server TCP
+	QtserverTCP serverTcp(bdd, 4321);
+
+	serverTcp.setWSServer(&serverWebSocket);
+	serverWebSocket.setTcpServer(&serverTcp);
+
+	return a.exec();
+}
+	
+	//$SDMTW,,,C*36		:: Temperature
+	//$SDDPT,,*57		:: Profondeur
+
+	//Coordonnée
+	//$GPGGA, 00 00 42, 4952.6634, N, 00218.1741, E, 0, 0, 50.00, -47, M, , , , *26\r\n
