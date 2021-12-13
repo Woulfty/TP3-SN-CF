@@ -1,5 +1,2 @@
-﻿  moc Sondeur.h
-  Sondeur.cpp
-  main.cpp
-  moc_Sondeur.cpp
-  Sondeur.vcxproj -> C:\Users\Romain\Desktop\Sondeur\Sondeur\x64\Debug\Sondeur.exe
+﻿  main.cpp
+z:\marrocchi\tp3-sn-cf\sondeur\sondeur.h(1): fatal error C1083: Impossible d'ouvrir le fichier include : 'QtWidgets/QMainWindow' : No such file or directory
