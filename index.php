@@ -21,7 +21,20 @@ include "fonction.php";
     
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script>
+        // Créer une connexion WebSocket
+        const socket = new WebSocket('192.168.65.201');
 
+        // La connexion est ouverte
+        socket.addEventListener('open', function (event) {
+        socket.send('Coucou le serveur !');
+        });
+
+        // Écouter les messages
+        socket.addEventListener('message', function (event) {
+        console.log('Voici un message du serveur', event.data);
+        });
+    </script>
     <title>SN-CF</title>
 </head>
 <body>
