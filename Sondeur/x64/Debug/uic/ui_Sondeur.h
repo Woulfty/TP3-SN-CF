@@ -12,7 +12,6 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
@@ -25,7 +24,6 @@ class Ui_SondeurClass
 {
 public:
     QWidget *centralWidget;
-    QListWidget *log;
     QLabel *longitude;
     QLabel *latitude;
     QMenuBar *menuBar;
@@ -39,15 +37,12 @@ public:
         SondeurClass->resize(615, 450);
         centralWidget = new QWidget(SondeurClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        log = new QListWidget(centralWidget);
-        log->setObjectName(QString::fromUtf8("log"));
-        log->setGeometry(QRect(340, 10, 256, 192));
         longitude = new QLabel(centralWidget);
         longitude->setObjectName(QString::fromUtf8("longitude"));
-        longitude->setGeometry(QRect(20, 10, 101, 31));
+        longitude->setGeometry(QRect(260, 20, 111, 31));
         latitude = new QLabel(centralWidget);
         latitude->setObjectName(QString::fromUtf8("latitude"));
-        latitude->setGeometry(QRect(20, 40, 101, 31));
+        latitude->setGeometry(QRect(260, 50, 111, 31));
         SondeurClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SondeurClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

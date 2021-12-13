@@ -8,7 +8,7 @@
 #include <QSqlQuery>
 #include <QtSql>
 
-#define PORT "COM1"
+#define PORT "COM6"
 
 Sondeur::Sondeur(QWidget *parent)
 	: QMainWindow(parent)
@@ -19,7 +19,7 @@ Sondeur::Sondeur(QWidget *parent)
 	QObject::connect(port, SIGNAL(readyRead()), this, SLOT(serialPortRead()));
 	port->setPortName(PORT);
 	port->open(QIODevice::ReadWrite);
-	port->setBaudRate(QSerialPort::Baud4800);
+	port->setBaudRate(QSerialPort::Baud9600);
 	port->setDataBits(QSerialPort::DataBits::Data8);
 	port->setParity(QSerialPort::Parity::NoParity);
 	port->setStopBits(QSerialPort::StopBits::OneStop);
@@ -76,18 +76,34 @@ void Sondeur::serialPortRead() {
 		int LongitudeDot = Longitude.indexOf(".")
 			, LatitudeDot = Latitude.indexOf(".");
 
-		Longitude.insert(LongitudeDot - 2, ",");
-		Latitude.insert(LatitudeDot - 2, ",");
+		if (Longitude.toDouble() > 10) {
+			Longitude.insert(LongitudeDot - 2, ",");
+		}
+		else {
+			Longitude.insert(LongitudeDot - 1, "00,");
+		}
 
+		if (Latitude.toDouble() > 10) {
+			Latitude.insert(LatitudeDot - 2, ",");
+		}
+		else {
+			Longitude.insert(LongitudeDot - 1, "00,");
+		}
+
+		// -- Latitude
 		QStringList LatitudeSplit = Latitude.split(",");
 		double LatitudeDivide = LatitudeSplit.at(1).toDouble() / 60;
 		double LatitudePDivide = LatitudeSplit.at(0).toDouble();
 		double VraiLatitude = LatitudeDivide + LatitudePDivide;
+		
+		// -- Longitude
 
 		QStringList LongitudeSplit = Longitude.split(",");
 		double LongitudeDivide = LongitudeSplit.at(1).toDouble() / 60;
 		double LongitudePDivide = LongitudeSplit.at(0).toDouble();
 		double VraiLongitude = LongitudeDivide + LongitudePDivide;
+		
+
 
 		QString LongitudeString = QString::number(VraiLongitude);
 
@@ -99,7 +115,7 @@ void Sondeur::serialPortRead() {
 		ui.latitude->setText(LatitudeString);
 		ui.longitude->setText(LongitudeString);
 
-		QString requete = "UPDATE train SET latitude = "+LatitudeString+", longitude = "+LongitudeString+"";
+		QString requete = "UPDATE train SET latitude = "+LatitudeString+", longitude = "+LongitudeString+" WHERE id = 1";
 	}
 	QStringList list;
 }
