@@ -73,7 +73,7 @@ void loop() {
        Serial.print("00");
       Serial.print(NOTE[i][1],4);
       NOTE[i][1] = NOTE[i][1] + 1.3;
-      Serial.println(",E,1,08,0.9,545.4,M,46.9,M, , *42");
+      Serial.println(",E,1,08,0.9,545.4,M,46.9,M, ,,, *42");
       delay(3000);
     }
   
