@@ -7,7 +7,7 @@ void setup() {
 
 void loop() {
   int i=0;
-  float NOTE[25][2] = {
+  float NOTE[50][2] = {
     //aller
     {2.30824, 49.8907},
     {2.32499, 49.8884},
@@ -63,7 +63,7 @@ void loop() {
     {2.30824, 49.8907},
     };
 
-    for(i=0;i<25;i++){
+    for(i=0;i<50;i++){
       Serial.print("$GPGGA,084548,");
       //Latitude :
       Serial.print(NOTE[i][0],4);
@@ -74,7 +74,7 @@ void loop() {
       Serial.print(NOTE[i][1],4);
       NOTE[i][1] = NOTE[i][1] + 1.3;
       Serial.println(",E,1,08,0.9,545.4,M,46.9,M, , *42");
-      delay(1000);
+      delay(3000);
     }
   
 }
