@@ -8,6 +8,13 @@
 #include <QSqlQuery>
 #include <QtSql>
 
+//Include pour le socket
+#include <QtCore/QCoreApplication>
+#include "serverTCP.h"
+#include "serverWebSocket.h"
+#include "bddserver.h"
+
+
 #define PORT "COM6"
 
 Sondeur::Sondeur(QWidget *parent)
@@ -42,6 +49,27 @@ Sondeur::Sondeur(QWidget *parent)
 	}
 }
 
+int main(int argc, char *argv[])
+{
+	QCoreApplication a(argc, argv);
+
+	//Connexion à la BDD
+	bddserver *bdd = new bddserver();
+	bdd->bddInit("QMYSQL", "192.168.65.201", "SNCF", "root", "root");
+
+	//Appel du server WS
+	QtserverWebSocket serverWebSocket(bdd, 1234);
+
+	//Appel du server TCP
+	QtserverTCP serverTcp(bdd, 4321);
+
+	serverTcp.setWSServer(&serverWebSocket);
+	serverWebSocket.setTcpServer(&serverTcp);
+
+	return a.exec();
+}
+
+
 void Sondeur::serialPortRead() {
 
 	QByteArray data = port->read(port->bytesAvailable());
@@ -54,6 +82,7 @@ void Sondeur::serialPortRead() {
 		, stopMatch("(\\*)");
 
 	int startByte = startMatch.indexIn(trameBuff);
+
 
 	if (startByte > -1 && startByte > 0 && stopMatch.indexIn(trameBuff, startByte + 1) > -1) {
 
@@ -95,14 +124,14 @@ void Sondeur::serialPortRead() {
 		double LatitudeDivide = LatitudeSplit.at(1).toDouble() / 60;
 		double LatitudePDivide = LatitudeSplit.at(0).toDouble();
 		double VraiLatitude = LatitudeDivide + LatitudePDivide;
-		
+
 		// -- Longitude
 
 		QStringList LongitudeSplit = Longitude.split(",");
 		double LongitudeDivide = LongitudeSplit.at(1).toDouble() / 60;
 		double LongitudePDivide = LongitudeSplit.at(0).toDouble();
 		double VraiLongitude = LongitudeDivide + LongitudePDivide;
-		
+
 
 
 		QString LongitudeString = QString::number(VraiLongitude);
@@ -119,7 +148,7 @@ void Sondeur::serialPortRead() {
 		QSqlDatabase db = QSqlDatabase::database();
 		QSqlQuery query(db);
 
-		QString requete = "UPDATE train SET latitude = "+LatitudeString+", longitude = "+LongitudeString+" WHERE id = 1";
+		QString requete = "UPDATE train SET latitude = " + LatitudeString + ", longitude = " + LongitudeString + " WHERE id = 1";
 		query.exec(requete);
 	}
 	QStringList list;
