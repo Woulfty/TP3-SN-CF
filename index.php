@@ -205,7 +205,7 @@ socket.addEventListener('message', function (event) {
                 'layout': {},
                 'paint': {
                     'line-width': 8,
-                    'line-color': '#91A7AF',
+                    'line-color': '#006699',
                 },
             });
 
