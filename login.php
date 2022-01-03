@@ -1,3 +1,5 @@
+<!-- index.php => CARE -->
+
 <?php
     session_start();
     require "PDO.php";

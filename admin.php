@@ -1,3 +1,5 @@
+<!-- index.php => CARE -->
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

@@ -1,3 +1,5 @@
+<!-- index.php => CARE -->
+
 <?php
     //connexion à la bdd
     try

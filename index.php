@@ -1,3 +1,5 @@
+<!-- index.php => MARROCCHI -->
+
 <?php
 //$trame = new Trame($_PDO);
 
