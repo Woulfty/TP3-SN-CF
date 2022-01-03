@@ -1,6 +1,30 @@
 <?php
-    include "fonction.php";
+    require "PDO.php";
+    $LoginError = "";
+
+
+    if(isset($_POST['nom']))
+    {
+        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['MDP']."'");
+        $CountExistUser = $CheckUsers->fetch();
+        
+        if($CountExistUser['COUNT(*)'] > 0)
+        {
+            $_SESSION["Logged"] = true
+            $_SESSION["idUser"] = $tab['id'];
+            $_SESSION["admin"] = $tab['admin'];
+            //réponse a la connection
+                header("Location : admin.php ");
+        }
+        else
+        {
+            $LoginError = "Le Pseudo ou le mot de passe est incorrect...";
+        }
+    }
+    else
+    {}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,24 +44,33 @@
             include "menu.php";
         ?>
 
-        <div class="form">
+
+
+        <form class="form" action="" method="post">
             <div class="title">Bienvenue</div>
 
+            <p><?php echo $LoginError?></p>
+
             <div class="input-container ic1">
-                <input id="inputLogin_Connexion" class="input" type="text" placeholder=" " />
+                <input name="nom" id="inputLogin_Connexion" class="input" type="text" placeholder=" " />
                 <div class="cut"></div>
                 <label for="login" class="placeholder">Login</label>
             </div>
 
             <div class="input-container ic2">
-                <input id="inputPassword_Connexion" class="input" type="password" placeholder=" " />
+                <input name="MDP" id="inputPassword_Connexion" class="input" type="password" placeholder=" " />
                 <div class="cut"></div>
                 <label for="password" class="placeholder">Password</label>
             </div>
 
-            <button id="inputSend" type="text" class="submit">Se connecter</button>
+            <input type="submit" class="submit" name="login_submit" value="Se connecter">
         
-        </div>
+</form>
+
+
+
+
+
 
         <script type="text/javascript" src="JS/socket.js"></script>
     </body>
