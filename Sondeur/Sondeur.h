@@ -1,5 +1,6 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Sondeur.h"
+#include <QtSql>
 
 #include <qDebug>
 
@@ -12,6 +13,7 @@ class Sondeur : public QMainWindow
 
 public:
 	Sondeur(QWidget *parent = Q_NULLPTR);
+	void updateTrain(QString latitude, QString longitude);
 
 private:
 	Ui::SondeurClass ui;
@@ -19,6 +21,12 @@ private:
 	QSerialPort *port;
 	QString trameBuff;
 	QString trame;
+
+	QSqlDatabase * db;
+	QString Qhost = "192.168.65.201";
+	QString QUserName = "root";
+	QString QPassword = "root";
+	QString QDatabaseName = "SNCF";
 
 public slots:
 	void serialPortRead();

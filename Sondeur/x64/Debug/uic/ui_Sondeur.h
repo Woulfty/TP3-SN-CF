@@ -14,6 +14,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,10 @@ public:
     QWidget *centralWidget;
     QLabel *longitude;
     QLabel *latitude;
+    QLabel *latitude_2;
+    QLabel *longitude_2;
+    QLabel *SQL;
+    QPlainTextEdit *SQL2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -43,6 +48,18 @@ public:
         latitude = new QLabel(centralWidget);
         latitude->setObjectName(QString::fromUtf8("latitude"));
         latitude->setGeometry(QRect(260, 50, 111, 31));
+        latitude_2 = new QLabel(centralWidget);
+        latitude_2->setObjectName(QString::fromUtf8("latitude_2"));
+        latitude_2->setGeometry(QRect(140, 50, 111, 31));
+        longitude_2 = new QLabel(centralWidget);
+        longitude_2->setObjectName(QString::fromUtf8("longitude_2"));
+        longitude_2->setGeometry(QRect(140, 20, 111, 31));
+        SQL = new QLabel(centralWidget);
+        SQL->setObjectName(QString::fromUtf8("SQL"));
+        SQL->setGeometry(QRect(20, 160, 561, 21));
+        SQL2 = new QPlainTextEdit(centralWidget);
+        SQL2->setObjectName(QString::fromUtf8("SQL2"));
+        SQL2->setGeometry(QRect(70, 200, 471, 51));
         SondeurClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SondeurClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -65,6 +82,9 @@ public:
         SondeurClass->setWindowTitle(QCoreApplication::translate("SondeurClass", "Sondeur", nullptr));
         longitude->setText(QString());
         latitude->setText(QString());
+        latitude_2->setText(QCoreApplication::translate("SondeurClass", "Latitude :", nullptr));
+        longitude_2->setText(QCoreApplication::translate("SondeurClass", "Longitude :", nullptr));
+        SQL->setText(QCoreApplication::translate("SondeurClass", "TextLabel", nullptr));
     } // retranslateUi
 
 };
