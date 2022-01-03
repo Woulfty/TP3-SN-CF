@@ -1,6 +1,7 @@
 ﻿#include "Sondeur.h"
 #include "Qdebug"
 #include <QRegExp>
+#include <qmessagebox.h>
 
 //Include des dépendances pour les requêtes SQL
 #include <QSqlDatabase>
@@ -9,13 +10,13 @@
 #include <QtSql>
 
 //Include pour le socket
-#include <QtCore/QCoreApplication>
-#include "serverTCP.h"
-#include "serverWebSocket.h"
-#include "bddserver.h"
+//#include <QtCore/QCoreApplication>
+//#include "serverTCP.h"
+//#include "serverWebSocket.h"
+//#include "bddserver.h"
 
 
-#define PORT "COM6"
+#define PORT "COM1"
 
 Sondeur::Sondeur(QWidget *parent)
 	: QMainWindow(parent)
@@ -26,30 +27,38 @@ Sondeur::Sondeur(QWidget *parent)
 	QObject::connect(port, SIGNAL(readyRead()), this, SLOT(serialPortRead()));
 	port->setPortName(PORT);
 	port->open(QIODevice::ReadWrite);
-	port->setBaudRate(QSerialPort::Baud9600);
+	port->setBaudRate(QSerialPort::Baud4800);
 	port->setDataBits(QSerialPort::DataBits::Data8);
 	port->setParity(QSerialPort::Parity::NoParity);
 	port->setStopBits(QSerialPort::StopBits::OneStop);
 	port->setFlowControl(QSerialPort::NoFlowControl);
 
-	// On instancie la base de donnée
+	// - Connecting to mysql database
 	QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
 	db.setHostName("192.168.65.201");
-	db.setUserName("root");
-	db.setPassword("root");
 	db.setDatabaseName("SNCF");
+	db.setUserName("admin");
+	db.setPassword("admin");
 
-	if (port->isOpen())
+	if (db.open()) {
+		QMessageBox::information(this, "Connection", "Database connected successfully");
+	}
+	else {
+		QMessageBox::information(this, "Not Connected", "Database is not connected");
+		exit(1);
+	}
+
+	/*if (port->isOpen())
 	{
 		qDebug() << "Ping Pong";
 	}
 	else
 	{
 		qDebug() << "Ching Chong";
-	}
+	}*/
 }
 
-int main(int argc, char *argv[])
+/*int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
@@ -67,7 +76,7 @@ int main(int argc, char *argv[])
 	serverWebSocket.setTcpServer(&serverTcp);
 
 	return a.exec();
-}
+}*/
 
 
 void Sondeur::serialPortRead() {
@@ -145,13 +154,24 @@ void Sondeur::serialPortRead() {
 		ui.longitude->setText(LongitudeString);
 
 		// -- Initialise la query 
-		QSqlDatabase db = QSqlDatabase::database();
-		QSqlQuery query(db);
-
-		QString requete = "UPDATE train SET latitude = " + LatitudeString + ", longitude = " + LongitudeString + " WHERE id = 1";
-		query.exec(requete);
+		// updateTrain(LatitudeString, LongitudeString);
 	}
 	QStringList list;
+}
+
+
+void Sondeur::updateTrain(QString latitude, QString longitude)
+{
+	QSqlQuery request;
+	//request.prepare("UPDATE train SET `latitude` = '" + latitude + "', `longitude` = '" + longitude + "' WHERE id = '1'");
+	request.exec("UPDATE train SET `latitude` = '2', `longitude` = '42' WHERE id = '1'");
+
+	if (request.exec()) {
+		QMessageBox::information(this, "result query", "Data updated Successfully");
+	}
+	else {
+		QMessageBox::information(this, "result query", "Data not updated");
+	}
 }
 
 //$SDMTW,,,C*36		:: Temperature
