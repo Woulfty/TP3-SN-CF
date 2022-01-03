@@ -10,7 +10,7 @@
         
         if($CountExistUser['COUNT(*)'] > 0)
         {
-            $_SESSION["Logged"] = true
+            $_SESSION["Logged"] = true;
             $_SESSION["idUser"] = $tab['id'];
             $_SESSION["admin"] = $tab['admin'];
             //réponse a la connection
