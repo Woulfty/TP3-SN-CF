@@ -10,10 +10,10 @@
 #include <QtSql>
 
 //Include pour le socket
-//#include <QtCore/QCoreApplication>
-//#include "serverTCP.h"
-//#include "serverWebSocket.h"
-//#include "bddserver.h"
+#include <QtCore/QCoreApplication>
+#include "serverTCP.h"
+#include "serverWebSocket.h"
+#include "bddserver.h"
 
 
 #define PORT "COM1"
@@ -58,7 +58,7 @@ Sondeur::Sondeur(QWidget *parent)
 	}*/
 }
 
-/*int main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
@@ -76,7 +76,7 @@ Sondeur::Sondeur(QWidget *parent)
 	serverWebSocket.setTcpServer(&serverTcp);
 
 	return a.exec();
-}*/
+}
 
 
 void Sondeur::serialPortRead() {
