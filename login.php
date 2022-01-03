@@ -4,16 +4,15 @@
     $LoginError = "";
 
 
-    if(isset($_POST['nom']))
+    if(isset($_POST['login_submit']))
     {
-        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['MDP']."'");
+        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['¨MDP']."'");
         $CountExistUser = $CheckUsers->fetch();
         
         if($CountExistUser['COUNT(*)'] > 0)
         {
             $_SESSION["Logged"] = true;
             $_SESSION["idUser"] = $tab['id'];
-            $_SESSION["admin"] = $tab['admin'];
             //réponse a la connection
                 header("Location : admin.php ");
         }
