@@ -1,18 +1,20 @@
+<!-- index.php => CARE -->
+
 <?php
+    session_start();
     require "PDO.php";
     $LoginError = "";
 
 
-    if(isset($_POST['nom']))
+    if(isset($_POST['submit']))
     {
-        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['MDP']."'");
+        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['¨MDP']."'");
         $CountExistUser = $CheckUsers->fetch();
         
         if($CountExistUser['COUNT(*)'] > 0)
         {
             $_SESSION["Logged"] = true;
             $_SESSION["idUser"] = $tab['id'];
-            $_SESSION["admin"] = $tab['admin'];
             //réponse a la connection
                 header("Location : admin.php ");
         }
@@ -21,8 +23,6 @@
             $LoginError = "Le Pseudo ou le mot de passe est incorrect...";
         }
     }
-    else
-    {}
 ?>
 
 
@@ -49,7 +49,7 @@
         <form class="form" action="" method="post">
             <div class="title">Bienvenue</div>
 
-            <p><?php echo $LoginError?></p>
+            <p class="LoginError"><?php echo $LoginError?></p>
 
             <div class="input-container ic1">
                 <input name="nom" id="inputLogin_Connexion" class="input" type="text" placeholder=" " />
@@ -63,13 +63,9 @@
                 <label for="password" class="placeholder">Password</label>
             </div>
 
-            <input type="submit" class="submit" name="login_submit" value="Se connecter">
+            <input type="submit" class="submit" name="submit" value="Se connecter">
         
-</form>
-
-
-
-
+        </form>
 
 
         <script type="text/javascript" src="JS/socket.js"></script>
