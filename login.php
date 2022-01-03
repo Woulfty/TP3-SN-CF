@@ -1,5 +1,6 @@
 <?php
-    require "PDO.php";
+    session_start();
+    include "PDO.php";
     $LoginError = "";
 
 
@@ -47,7 +48,7 @@
         <form class="form" action="" method="post">
             <div class="title">Bienvenue</div>
 
-            <p><?php echo $LoginError?></p>
+            <p class="LoginError"><?php echo $LoginError?></p>
 
             <div class="input-container ic1">
                 <input name="nom" id="inputLogin_Connexion" class="input" type="text" placeholder=" " />

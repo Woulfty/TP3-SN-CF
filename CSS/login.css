@@ -128,3 +128,8 @@ body {
     background-color: #06b;
   }
   
+  .LoginError{
+    text-align: center;
+    font-weight: bold;
+    color: red;
+  }
