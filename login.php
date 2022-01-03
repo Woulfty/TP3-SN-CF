@@ -1,10 +1,10 @@
 <?php
     session_start();
-    include "PDO.php";
+    require "PDO.php";
     $LoginError = "";
 
 
-    if(isset($_POST['login_submit']))
+    if(isset($_POST['submit']))
     {
         $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['¨MDP']."'");
         $CountExistUser = $CheckUsers->fetch();
@@ -61,7 +61,7 @@
                 <label for="password" class="placeholder">Password</label>
             </div>
 
-            <input type="submit" class="submit" name="login_submit" value="Se connecter">
+            <input type="submit" class="submit" name="submit" value="Se connecter">
         
         </form>
 
