@@ -62,9 +62,6 @@
         public function loginUser() {//ajouter des users en BDD
             ?>
                 <form class="form" action="" method="post">
-                    <div class="title">Bienvenue</div>
-
-                    <p><?php echo $LoginError?></p>
 
                     <div class="input-container ic1">
                         <input name="nom" id="inputLogin_Connexion" class="input" type="text" placeholder=" " />
