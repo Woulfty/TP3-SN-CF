@@ -1,30 +1,8 @@
-<!-- index.php => CARE -->
-
 <?php
-    session_start();
     require "PDO.php";
-    $LoginError = "";
-
-
-    if(isset($_POST['submit']))
-    {
-        $CheckUsers = $bdd->query("SELECT COUNT(*) FROM user WHERE name = '".$_POST['name']."' AND MDP = '".$_POST['¨MDP']."'");
-        $CountExistUser = $CheckUsers->fetch();
-        
-        if($CountExistUser['COUNT(*)'] > 0)
-        {
-            $_SESSION["Logged"] = true;
-            $_SESSION["idUser"] = $tab['id'];
-            //réponse a la connection
-                header("Location : admin.php ");
-        }
-        else
-        {
-            $LoginError = "Le Pseudo ou le mot de passe est incorrect...";
-        }
-    }
+    session_start();
+    if(check()){
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -65,7 +43,33 @@
 
             <input type="submit" class="submit" name="submit" value="Se connecter">
         
+            
+            <?php   
+                
+                if(isset($_POST['submit']))
+                {
+                    $login = $BDD->query("SELECT * FROM `user` WHERE `name` = '".$_POST['nom']."' AND `MDP` = '".$_POST['MDP']."'");
+                    if($login->rowCount()>0){
+                        $tab = $login->fetch();
+
+                        $_SESSION["Logged"] = true;
+                        $_SESSION["idUser"] = $tab['id'];
+                        //réponse a la connection
+                        header("location: admin.php ");
+
+                    }else{
+                        ?>
+                            <h4 class="colorwhite">Le mot de passe ou l'identifiant n'est pas le bon</h4>
+                        <?php
+                    }
+                }
+            ?>  
         </form>
+    <?php
+        }else{
+            header("location: admin.php");
+        }
+    ?>
 
 
         <script type="text/javascript" src="JS/socket.js"></script>

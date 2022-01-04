@@ -1,8 +1,6 @@
-<!-- index.php => MARROCCHI -->
-
 <?php
 //$trame = new Trame($_PDO);
-
+session_start();
 // On vérifie si la variable existe et sinon elle vaut NULL
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : NULL;
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : NULL;
@@ -48,20 +46,9 @@ echo $Train["longitude"];
     
     <div id='map' class='esp' style='width: 1900px; height: 900px; margin-top: 60px;'>
 
+        <script src="JS/socket.js"></script>
+
         <script>
-
-            // Créer une connexion WebSocket
-const socket = new WebSocket('ws://localhost:1000');
-
-// La connexion est ouverte
-socket.addEventListener('open', function (event) {
- socket.send('Coucou le serveur !');
-});
-
-// Écouter les messages
-socket.addEventListener('message', function (event) {
-  console.log('Voici un message du serveur', event.data);
-});
 
             mapboxgl.accessToken = 'pk.eyJ1IjoicmxpZW5hcmQiLCJhIjoiY2t3YWoxeWFpMTJoMDJucW11bXcwZXowbiJ9.zWBqg_Hbr6zEQTiI-nViaQ';
             var map = new mapboxgl.Map({
@@ -115,8 +102,8 @@ socket.addEventListener('message', function (event) {
             
             // - Simulate Tchou-Tchou
             const TchouTchou = document.createElement('div');
-            const width = 64;
-            const height = 64;
+            const width = 32;
+            const height = 32;
             TchouTchou.className = 'TchouTchou';
             TchouTchou.style.backgroundImage = `url(IMG/Tchou-Tchou.png)`;
             TchouTchou.style.width = `${width}px`;
