@@ -22,8 +22,6 @@
             include "menu.php";
         ?>
 
-
-
         <form class="form" action="" method="post">
             <div class="title">Bienvenue</div>
 
@@ -70,7 +68,6 @@
             header("location: admin.php");
         }
     ?>
-
 
         <script type="text/javascript" src="JS/socket.js"></script>
     </body>
