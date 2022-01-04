@@ -43,12 +43,12 @@
 
             <input type="submit" class="submit" name="submit" value="Se connecter">
         
-            
             <?php   
                 
                 if(isset($_POST['submit']))
                 {
                     $login = $BDD->query("SELECT * FROM `user` WHERE `name` = '".$_POST['nom']."' AND `MDP` = '".$_POST['MDP']."'");
+                    //si l'utilisateur existe on le connecte
                     if($login->rowCount()>0){
                         $tab = $login->fetch();
 
