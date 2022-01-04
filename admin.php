@@ -27,13 +27,12 @@
 
     <!--deconnexion-->
     <form class="form" action="" method="post">
-        <input type="submit" class="submit" name="submit" value="déconnexion">
+        <input type="submit" class="submit" name="deco" value="déconnexion">
         <?php
-            if (isset($_POST["submit"])) {
+            if (isset($_POST["deco"])) {
                 session_destroy();
                 $_SESSION["Logged"] = false;
                 header("location: index.php");
-
             }
         ?>
     </form>
@@ -71,15 +70,10 @@
                         return;
                     
                     }else{
-
-                        if($_POST['MDP'] == $_POST['password']) { //si les mot de passe corespondent 
-                            $insert = $MaBase->query("INSERT INTO user(name, MDP) VALUES('".$_POST['nom']."','".$_POST['MDP']."')");
-                          //insertion dans la base des utilisateur du pseudo et du mot de passe
-                            echo "<h3 class='desct'>L'utilisateur a été ajouté...</h3>";
-                        }else{
-                            //message d'erreur si les mots de passes ne correspondes pas
-                            echo "<h3 class='desct'>L'utilisateur n'a pas été ajouté...</h3>";
-                        }
+                        echo 'coucou';
+                        $BDD->query("INSERT INTO user(name, MDP) VALUES('".$_POST['nom']."','".$_POST['MDP']."')");
+                        //insertion dans la base des utilisateur du pseudo et du mot de passe
+                        echo "<h3 class='desct'>L'utilisateur a été ajouté...</h3>";
                     }
                 }
             ?>  
@@ -87,7 +81,7 @@
 
     <script type="text/javascript" src="../JS/socket.js"></script>
 
-    
+
 
     <!--ajouté -->
     <?php
